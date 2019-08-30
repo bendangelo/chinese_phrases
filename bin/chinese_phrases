@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'chinese_phrases'
+
+ChinesePhrases.run ARGV[0]
