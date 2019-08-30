@@ -21,12 +21,32 @@ Or install it yourself as:
 ## Usage
 
 ```
-chinese_phrases input_words.csv
+chinese_phrases export input_words.csv
 ```
 
 Output will be at `output_phrases.csv`.
 
 By default output will be in traditional Chinese.
+
+```
+chinese_phrases help export
+
+Usage:
+  chinese_phrases export
+
+Options:
+  [--output-file=OUTPUT_FILE]
+  [--max-len=N]
+                               # Default: 15
+  [--max-per=N]
+                               # Default: 10
+  [--page-size=N]
+                               # Default: 100
+  [--trad], [--no-trad]
+                               # Default: true
+
+Output given word csv to phrases csv
+```
 
 ## Development
 

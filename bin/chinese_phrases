@@ -1,5 +1,18 @@
 #!/usr/bin/env ruby
 
 require 'chinese_phrases'
+require 'thor'
 
-ChinesePhrases.run ARGV[0]
+class CLI < Thor
+  option :output_file
+  option :max_len, type: :numeric, default: 15
+  option :max_per, type: :numeric, default: 10
+  option :page_size, type: :numeric, default: 100
+  option :trad, type: :boolean, default: true
+  desc "export", "Output given word csv to phrases csv"
+  def export(name)
+    ChinesePhrases.run name, options
+  end
+end
+
+CLI.start(ARGV)
