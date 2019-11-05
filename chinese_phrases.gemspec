@@ -22,9 +22,9 @@ Gem::Specification.new do |spec|
   spec.executables   = ["chinese_phrases"]
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'httparty'
-  spec.add_dependency 'tradsim'
-  spec.add_dependency 'thor'
+  spec.add_dependency 'httparty', "~> 0.17"
+  spec.add_dependency 'tradsim', "~> 0.5"
+  spec.add_dependency 'thor', "~> 0.20"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"

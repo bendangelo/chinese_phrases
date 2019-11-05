@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    chinese_phrases (0.1.1)
-      httparty
-      thor
-      tradsim
+    chinese_phrases (0.1.2)
+      httparty (~> 0.17)
+      thor (~> 0.20)
+      tradsim (~> 0.5)
 
 GEM
   remote: https://rubygems.org/
