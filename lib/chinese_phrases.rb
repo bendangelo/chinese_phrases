@@ -15,10 +15,12 @@ module ChinesePhrases
 
       params = {
         page: options[:page] || 1, # page to check on source
-        page_size: options[:page_size] || 100, # number of examples from api call
+        page_size: options[:page_size] || 50, # number of examples from api call
         max_length: options[:max_len] || 15, # only accept examples length than this
         max_per: options[:max_per] || 10, # only accept this number of examples
       }
+
+      puts "Running with params #{params}"
 
       query_list = []
       total_examples = []
@@ -26,6 +28,12 @@ module ChinesePhrases
       # read input file to create list of words to query
       CSV.foreach(input_file) do |csv|
         query_list << Tradsim::to_sim(csv[input_index])
+      end
+
+      if query_list.empty?
+        puts "CSV file is empty!"
+      elsif query_list.count > 1000
+        puts "[WARNING] CSV file has over 1000 lines, this can take a long time and/or fail! Consider splitting the file."
       end
 
       # query each word individually and combine to total list
@@ -43,9 +51,11 @@ module ChinesePhrases
             example = Tradsim::to_trad(example)
           end
 
-          puts "Writing #{a["recentTrslation"]} #{example}"
+          pinyin = a["pinyin"]
 
-          csv << [a["recentTrslation"], example, a["pinyin"]]
+          puts "Writing #{a["recentTrslation"]} #{example} #{pinyin}"
+
+          csv << [a["recentTrslation"], example, pinyin]
         end
       end
 
@@ -55,6 +65,8 @@ module ChinesePhrases
     def get_examples query, params
       query_escaped = CGI::escape query
       callback = "jQuery1111013304390430117385_1567195383336"
+
+      puts "Fetching examples for #{query}"
 
       url = "https://dict.naver.com/linedict/cnen/example/search.dict?callback=#{callback}&query=#{query_escaped}&page=#{params[:page]}&page_size=#{params[:page_size]}&examType=normal&fieldType=&author=&country=&ql=default&format=json&platform=isPC&_=1567195383337"
 
@@ -81,12 +93,16 @@ module ChinesePhrases
 
       exampleList = data["exampleList"]
 
+      puts "Found #{exampleList.count} examples"
+
       # collect shortest examples
       examples = exampleList.filter { |i| i["example"].length < params[:max_length] }
 
       if params[:max_per] > -1
         examples = examples[0..params[:max_per] - 1]
       end
+
+      puts "Filtered down to #{examples.count} examples"
 
       examples
     end

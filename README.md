@@ -2,6 +2,21 @@
 
 Converts a csv of Chinese words to a csv of example sentences for use in Anki.
 
+*Note:* This uses the free online dictionary at dict.naver.com to pull sentences, please be respectful.
+
+## Context
+
+As you're learning Chinese you'll come across new words that you would
+like to practice. You can use this gem as such:
+
+* As you read an article or watch a video
+* Write down any new words you find on a new in line a text file
+* Enter only one word per line
+* Once done, save the file
+* Use this library to convert those words into examples sentences
+* These sentences can be used for your own study in Anki or whatever you like
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -41,7 +56,7 @@ Options:
   [--max-per=N]
                                # Default: 10
   [--page-size=N]
-                               # Default: 100
+                               # Default: 50
   [--trad], [--no-trad]
                                # Default: true
 

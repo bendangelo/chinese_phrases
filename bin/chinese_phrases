@@ -7,7 +7,7 @@ class CLI < Thor
   option :output_file
   option :max_len, type: :numeric, default: 15
   option :max_per, type: :numeric, default: 10
-  option :page_size, type: :numeric, default: 100
+  option :page_size, type: :numeric, default: 50
   option :trad, type: :boolean, default: true
   desc "export", "Output given word csv to phrases csv"
   def export(name)
