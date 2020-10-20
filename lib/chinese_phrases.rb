@@ -60,7 +60,23 @@ module ChinesePhrases
 
       response = HTTParty.get(url)
 
-      cleaned_resp = response.match("#{callback}(.*)")[1][1..-2]
+      if !response.success?
+        puts "Error from server #{response.code}"
+        puts "Server response:"
+        puts response.parse_response
+        return []
+      end
+
+      callback_removed = response.match("#{callback}(.*)")
+
+      if callback_removed == nil
+        puts "Callback not found, json error from server. Outputting response."
+        puts response
+        return []
+      end
+
+      cleaned_resp = callback_removed[1][1..-2]
+
       data = JSON.parse cleaned_resp
 
       exampleList = data["exampleList"]
